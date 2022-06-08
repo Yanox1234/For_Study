@@ -1,0 +1,82 @@
+
+
+
+###
+POST http://localhost:8080/api/v1/student
+Content-Type: application/json
+
+{
+  "name": "Bilal",
+  "email": "bilal@gmail.com",
+  "dob": "1995-12-17"
+}
+
+<> 2022-01-27T161015.500.json
+<> 2022-01-27T160911.500.json
+
+###
+DELETE http://localhost:8080/api/v1/student/3
+
+<> 2022-01-27T161651.500.json
+
+###
+PUT http://localhost:8080/api/v1/auth/activateAccount/1f8a4465-50a4-40a5-85a3-e423cdfa1f50
+
+<> 2022-01-27T163751.405.json
+###
+// Get all bakeries
+GET https://localhost:8443/api/v1/bakeries
+Accept: application/json
+
+###
+POST https://localhost:8443/api/v1/bakeries
+#POST http://beta-baker-backend.cloud.aachen.ru:6333/api/v1/bakeries
+Content-Type: application/json
+
+{
+  "name": "Some bakery",
+  "image": "some/some_bakery.jpg",
+  "about": "lorem ipsum dolor sit amet"
+}
+
+<> 2022-01-30T024959.500.json
+
+###
+DELETE https://localhost:8443/api/v1/bakeries/2
+
+###
+POST https://localhost:8443/api/v1/categories/52
+Content-Type: application/json
+
+{
+  "name": "Waffel",
+  "image": "some/waffel.jpg",
+  "about": "444444444"
+}
+
+<> 2022-01-28T110705.500.json
+<> 2022-01-28T110655.500.json
+
+###
+GET http://localhost:8080/api/v1/categories/bakery/53
+
+
+###
+
+// Get all products
+GET https://localhost:8443/api/v1/products
+Accept: application/json
+
+###
+POST https://localhost:8080/api/v1/products/580a6ee4-da41-4576-8339-a4c63e461e9e
+#POST http://beta-baker-backend.cloud.aachen.ru:6333/api/v1/bakeries
+Content-Type: application/json
+
+{
+  "name": "Test",
+  "image": "products/some_bakery.jpg",
+  "about": "lorem ipsum dolor sit amet",
+  "price": 2.5,
+  "receipt": "Some recept"
+
+}

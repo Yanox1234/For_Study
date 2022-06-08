@@ -1,0 +1,72 @@
+image: maven:3-jdk-11
+services:
+  - docker:dind
+
+variables:
+  DOCKER_DRIVER: overlay
+  SPRING_PROFILES_ACTIVE: beta
+  USER_GITLAB: slashmsu
+  APP_NAME: broetli-main-service
+  REPO: broetli-main-service
+
+stages:
+  - build
+  - test
+  - docker
+  - deployment
+
+build:
+  stage: build
+  rules:
+    - if: '$CI_COMMIT_REF_NAME == "master"'
+    - when: manual
+  script: "mvn clean package -B"
+#  artifacts:
+#    expire_in: never # 1 day
+#    paths:
+#      - target/*.jar
+
+test:
+  stage: test
+  rules:
+    - if: '$CI_COMMIT_REF_NAME == "master"'
+    - when: manual
+  script: "mvn test"
+#  artifacts:
+#    expire_in: never # 1 day
+#    paths:
+#      - target/*.jar
+
+docker:
+  stage: docker
+  rules:
+    - if: '$CI_COMMIT_REF_NAME == "master"'
+    - when: manual
+  #image: gitlab/dind
+  script:
+    #- docker login -u slashmsu -p 19slash93$
+    - mvn compile jib:build -Djib.to.auth.username=slashmsu -Djib.to.auth.password=19slash93$
+
+#deployment:
+#  stage: deployment
+#  script:
+#    - echo "Deploy to beta server"
+#  environment:
+#    name: staging
+#    url: https://broetli-frontend-prod.cloud.aachen.ru
+
+#deployment:
+#  stage: deployment
+#  rules:
+#    - if: '$CI_COMMIT_REF_NAME == "master"'
+#    - when: manual
+#  script:
+#    >
+#    - curl --request POST \
+#    -- url "https://captain.cloud.aachen.ru/api/v2/user/apps/webhooks/triggerbuild" \
+#    -- header "content-type: application/json" \
+#    -- header "PRIVATE-TOKEN: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InRva2VuVmVyc2lvbiI6ImVmMmNmYTI1LWE3NjktNDdhYi1iNWI2LTJjNWRiM2VlMjllNyIsImFwcE5hbWUiOiJiZXRhLWJha2VyLWJhY2tlbmQiLCJuYW1lc3BhY2UiOiJjYXB0YWluIn0sImlhdCI6MTY0NDI0OTgwOH0.sRd5_CQgcgmMgwxb6SKVDVoXXyViaoMNCbH1Q1IszdY" \
+#    -- data '{
+#      "namespace": "captain"
+#    }'
+

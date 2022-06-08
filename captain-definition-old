@@ -1,0 +1,9 @@
+ {
+  "schemaVersion" :2 ,
+  "imageName" : "index.docker.io/slashmsu/broetli-main-service-beta:0.0.31-beta"
+ }
+
+ {
+  "schemaVersion" :2 ,
+  "imageName" : "index.docker.io/slashmsu/broetli-main-service-prod:0.0.28-prod"
+ }
